@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+
+  mongo:
+    image: mongo
+    ports:
+      - "27017:27017"
+
+  backend:
+    build: ./backend
+    ports:
+      - "5000:5000"
+    depends_on:
+      - mongo
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/bluetest
+
+  frontend-basic:
+    build: ./frontend-basic
+    ports:
+      - "3000:3000"
+
+  frontend-enhanced:
+    build: ./frontend-enhanced
+    ports:
+      - "3001:3000"
